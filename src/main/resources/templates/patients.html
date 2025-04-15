@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patients</title>
+    <link rel="stylesheet" href="webjars/bootstrap/5.3.5/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .table thead {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .btn-toolbar a {
+            margin: 2px;
+        }
+
+        .navbar-custom {
+            background-color: #0d6efd;
+        }
+
+        .navbar-custom .navbar-brand {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Barre de navigation -->
+<nav class="navbar navbar-custom">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Gestion des patients</span>
+    </div>
+</nav>
+
+<!-- Contenu principal -->
+<div class="container mt-4">
+    <div class="input-group mb-4">
+        <form method="get" th:action="@{patients}">
+            <span class="input-group-text">Keyword</span>
+            <input type="text" th:value="${keyword}" class="form-control" name="keyword" placeholder="Nom du patient...">
+            <button type="submit"  class="btn btn-info">Rechrcher 🔍</button>
+        </form>
+    </div>
+
+    <table class="table table-hover table-bordered shadow-sm">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Date Naissance</th>
+            <th scope="col">Score</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patients : ${patientList}">
+            <th scope="row" th:text="${patients.getId()}"></th>
+            <td th:text="${patients.getNom()}"></td>
+            <td th:text="${#dates.format(patients.getDateNaissance(), 'dd/MM/yyyy')}"></td>
+            <td th:text="${patients.getScore()}"></td>
+            <td>
+                <a class="btn btn-sm btn-danger"
+                   th:href="@{/patients/delete(id=${patients.getId()},page=${page},size=${size})}"
+                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce patient ?')">
+                    Supprimer
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="btn-toolbar justify-content-center mt-4" role="toolbar">
+        <a th:each="w : ${#numbers.sequence(0, (count<0?0:count ))}"
+           th:class="${page==w?'btn btn-info':'btn btn-outline-info'}"
+
+           th:href="@{/patients(page=${w},size=${size},keyword=${keyword})}"
+           th:text="${w + 1}">
+        </a>
+    </div>
+</div>
+
+<script src="webjars/bootstrap/5.3.5/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

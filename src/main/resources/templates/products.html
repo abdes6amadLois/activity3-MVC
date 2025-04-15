@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.5/css/bootstrap.min.css">
+    <title>products</title>
+</head>
+<body>
+
+    <div class="p-3">
+        <h1>Bonjour !!!!!</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th> <th scope="col">Name</th> <th scope="col">Price</th> <th scope="col">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="products : ${productsList}">
+                <th th:text="${products.getId()}" scope="row"></th>
+                <td th:text="${products.getName()}"></td>
+                <td th:text="${products.getPrice()}"></td>
+                <td th:text="${products.getQuantity()}"></td>
+                <td >
+                    <a onclick="return confirm('etes vous sure ?!')" class="btn btn-danger" th:href="@{/delete(id=${products.getId()})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
