@@ -12,6 +12,11 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/patients";
+    }
+
     @GetMapping("/products")
     public String products(Model model) {
         model.addAttribute("productsList", productRepository.findAll());
