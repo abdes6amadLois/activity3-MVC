@@ -22,6 +22,11 @@ public class PatientController {
         this.patientRepository = patientRepository;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/patients";
+    }
+
     @GetMapping("/patients")
     public String patients(Model model, @RequestParam(name = "page",defaultValue = "0") int page,@RequestParam(name = "size",defaultValue = "2") int size , @RequestParam(name = "keyword",defaultValue = "") String keyword ) {
         Page<Patient> patients = patientRepository.findByNomContains(keyword,PageRequest.of(page, size));
