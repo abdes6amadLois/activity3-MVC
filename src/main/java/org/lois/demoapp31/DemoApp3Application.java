@@ -42,11 +42,11 @@ public class DemoApp3Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         patientRepository.save(new Patient(null,"Mohamed",new Date(),false,34));
-        patientRepository.save(new Patient (null, "Hanane", new Date(), false, 4321));
-        patientRepository.save(new Patient (null, "Imane", new Date(), true, 34));
-        patientRepository.save(new Patient(null,"Said",new Date(),true,70));
-        patientRepository.save(new Patient (null, "Oussama", new Date(), false, 321));
-        patientRepository.save(new Patient (null, "Israe", new Date(), true, 934));
+        patientRepository.save(new Patient (null, "Ilyass", new Date(), false, 4321));
+        patientRepository.save(new Patient (null, "Amine", new Date(), true, 34));
+        patientRepository.save(new Patient(null,"Oussama",new Date(),true,70));
+        patientRepository.save(new Patient (null, "Taha", new Date(), false, 321));
+        patientRepository.save(new Patient (null, "Yasser", new Date(), true, 934));
         patientRepository.save(new Patient (null, "Karim", new Date(), true, 785));
         System.out.println("-----------------------------------------");
         System.out.println(patientRepository.findByNomContains("karim", PageRequest.of(0, 2)));
